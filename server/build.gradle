@@ -1,0 +1,11 @@
+plugins {
+    id "application"
+}
+
+dependencies {
+    testImplementation "org.junit.jupiter:junit-jupiter:5.13.4"
+}
+
+application {
+    mainClass = "com.modwodmm.bolcy.ServerMain"
+}
