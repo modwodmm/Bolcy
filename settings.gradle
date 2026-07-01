@@ -2,3 +2,4 @@ rootProject.name = 'Bolcy'
 
 include("client")
 include("server")
+include("common")
