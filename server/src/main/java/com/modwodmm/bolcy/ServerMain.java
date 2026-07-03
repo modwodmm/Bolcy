@@ -13,10 +13,12 @@ public class ServerMain {
             System.out.println("Server started!");
             Socket client = serverSocket.accept();
             System.out.println("Client connected!");
-            while(true){
-                BufferedReader input = new BufferedReader(new InputStreamReader(client.getInputStream()));
-                String message = input.readLine();
-                System.out.println("Client: " + message);
+            BufferedReader input = new BufferedReader(new InputStreamReader(client.getInputStream()));
+            String username = input.readLine();
+            System.out.println("Hi! " + username);
+            String message;
+            while((message = input.readLine()) != null){
+                System.out.println(username + ": " + message);
             }
         }
         catch(IOException e){
