@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class ClientMenu {
     private final Scanner scanner;
     private final JsonHandler jsonHandler = new JsonHandler();
+    private final PasswordHashing passwordHashing = new PasswordHashing();
 
     public ClientMenu(Scanner scanner){
         this.scanner = scanner;
@@ -54,7 +55,8 @@ public class ClientMenu {
                 String username = scanner.nextLine();
                 System.out.println("Enter your password:");
                 String password = scanner.nextLine();
-                User user = new User(username, password);
+                String passwordHash = passwordHashing.hash(password);
+                User user = new User(username, passwordHash);
                 jsonHandler.save(user);
                 System.out.println("Account created successfully!");
             }
