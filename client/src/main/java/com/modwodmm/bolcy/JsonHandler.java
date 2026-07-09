@@ -7,8 +7,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class JsonHandler {
-    private final ObjectMapper objectMapper = new ObjectMapper();
+    private final ObjectMapper objectMapper;
     private final Path path = Path.of("data", "account.json");
+
+    public JsonHandler(ObjectMapper objectMapper){
+        this.objectMapper = objectMapper;
+    }
 
     public void save(User user){
         try{
