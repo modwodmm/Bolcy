@@ -44,6 +44,7 @@ public class ClientHandler implements Runnable{
         }
     }
 
+    //Creates user and authenticates it
     public void authenticateUser(){
         try{
             String userInfo = reader.readLine();
@@ -55,6 +56,7 @@ public class ClientHandler implements Runnable{
         }
     }
 
+    //Handles disconnecting
     public void disconnect(){
         try{
             reader.close();
@@ -65,6 +67,7 @@ public class ClientHandler implements Runnable{
         }
     }
 
+    //Sends messages to the related user
     public void sendMessage(String message){
         writer.println(message);
     }

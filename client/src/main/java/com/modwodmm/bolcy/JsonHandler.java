@@ -14,6 +14,7 @@ public class JsonHandler {
         this.objectMapper = objectMapper;
     }
 
+    //Handles saving user data
     public void save(User user){
         try{
             objectMapper.writeValue(path.toFile(), user);
@@ -23,6 +24,7 @@ public class JsonHandler {
         }
     }
 
+    //Handles loading user data
     public User load(){
         try{
             return objectMapper.readValue(path.toFile(), User.class);
@@ -32,6 +34,7 @@ public class JsonHandler {
         }
     }
 
+    //Checks for already existing accounts
     public boolean hasAccount(){
         try{
             return Files.size(path) > 0;

@@ -5,10 +5,12 @@ import java.util.Scanner;
 
 
 public class ClientMenu {
+
     private final Scanner scanner;
     private final JsonHandler jsonHandler;
     private final PasswordHashing passwordHashing;
     private final ClientSockets clientSockets;
+
     public ClientMenu(Scanner scanner, JsonHandler jsonHandler, PasswordHashing passwordHashing, ClientSockets clientSockets){
         this.scanner = scanner;
         this.jsonHandler = jsonHandler;
@@ -16,6 +18,7 @@ public class ClientMenu {
         this.clientSockets = clientSockets;
     }
 
+    //Start of the menu
     public void start() throws IOException{
         System.out.println("*-*-*-Bolcy-*-*-*");
         try{
@@ -32,6 +35,7 @@ public class ClientMenu {
         }
     }
 
+    //Handles connecting interface
     private void connect() throws IOException {
         System.out.println("1. Connect\n2. Exit");
         int choice = getChoice();
@@ -40,7 +44,7 @@ public class ClientMenu {
             switch(choice){
                 case 1:
                     User user = jsonHandler.load();
-                    clientSockets.startChat("localhost", 1001, user);
+                    clientSockets.startChat(user);
                     correctChoice = true;
                     break;
                 case 2:
@@ -52,6 +56,7 @@ public class ClientMenu {
         }
     }
 
+    //Handles registering interface
     private void register(){
         System.out.println("1. Register\n2. Exit");
         int choice = getChoice();
@@ -70,6 +75,7 @@ public class ClientMenu {
         }
     }
 
+    //Helper method to get the choice from the user
     private int getChoice(){
         while(true){
             try{

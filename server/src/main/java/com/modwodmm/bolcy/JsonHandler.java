@@ -16,6 +16,7 @@ public class JsonHandler {
         this.objectMapper = objectMapper;
     }
 
+    //Handles saving user data
     public void save(User user){
         try{
             objectMapper.writeValue(path.toFile(), user);
@@ -25,6 +26,7 @@ public class JsonHandler {
         }
     }
 
+    //Handles loading user data
     public List<User> load(){
         try{
             return objectMapper.readValue(path.toFile(), new TypeReference<List<User>>() {});

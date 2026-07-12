@@ -6,3 +6,14 @@ build
 
 # Ignore Kotlin plugin data
 .kotlin
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db

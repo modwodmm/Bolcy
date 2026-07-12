@@ -12,14 +12,17 @@ public class ServerSockets {
     private final ObjectMapper objectMapper;
     private final AuthHandler authHandler;
     private List<ClientHandler> clients;
+    private final ConfigManager configManager;
 
-    public ServerSockets(ObjectMapper objectMapper, AuthHandler authHandler){
+    public ServerSockets(ObjectMapper objectMapper, AuthHandler authHandler, ConfigManager configManager){
         this.objectMapper = objectMapper;
         this.authHandler = authHandler;
+        this.configManager = configManager;
     }
 
+    //Handles starting and connecting
     public void start() throws IOException {
-        ServerSocket serverSocket = new ServerSocket(1001);
+        ServerSocket serverSocket = new ServerSocket(configManager.getPort());
         while(true){
             Socket client = serverSocket.accept();
             ClientHandler clientHandler = new ClientHandler(client, objectMapper, authHandler, this);
@@ -30,6 +33,7 @@ public class ServerSockets {
 
     }
 
+    //Broadcasts messages to the users
     public void broadcast(String username, String message){
         for(ClientHandler client : clients){
             client.sendMessage(username + ": " + message);

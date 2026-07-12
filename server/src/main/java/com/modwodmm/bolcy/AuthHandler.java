@@ -10,6 +10,7 @@ public class AuthHandler {
         this.jsonHandler = jsonHandler;
     }
 
+    //Handles authentication and sends success/failure
     public boolean authentication(User incomingUser){
         List<User> existingUsers = jsonHandler.load();
         for(User user : existingUsers){

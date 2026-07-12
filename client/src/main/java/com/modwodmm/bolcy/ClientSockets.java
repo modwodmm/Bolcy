@@ -19,15 +19,18 @@ public class ClientSockets {
     private boolean connected;
     private final Scanner scanner;
     private BufferedReader reader;
+    private final ConfigManager configManager;
 
-    public ClientSockets(ObjectMapper objectMapper, Scanner scanner){
+    public ClientSockets(ObjectMapper objectMapper, Scanner scanner, ConfigManager configManager){
         this.objectMapper = objectMapper;
         this.scanner = scanner;
+        this.configManager = configManager;
     }
 
-    public void startChat(String hostName, int port, User user) throws IOException{
+    //Handles interface and data sharing
+    public void startChat(User user) throws IOException{
         System.out.println("Connecting...");
-        connect(hostName, port);
+        connect(configManager.getHost(), configManager.getPort());
         writer = new PrintWriter(socket.getOutputStream(), true);
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         System.out.println("Sending Data...");
@@ -39,11 +42,13 @@ public class ClientSockets {
         receiving.start();
     }
 
+    //Handles connecting
     private void connect(String hostName, int port) throws IOException{
             socket = new Socket(hostName, port);
             connected = true;
     }
 
+    //Sends data to the server
     private void sendData(User user){
         try{
             String userInfo = objectMapper.writeValueAsString(user);
@@ -54,6 +59,7 @@ public class ClientSockets {
         }
     }
 
+    //Sends messages to the server
     private void sendMessages(){
         while(connected){
             String message = scanner.nextLine();
@@ -65,6 +71,7 @@ public class ClientSockets {
         }
     }
 
+    //Receives messages from others
     private void receiveMessages(){
         while(connected){
             try{
@@ -82,6 +89,7 @@ public class ClientSockets {
         }
     }
 
+    //Handles disconneting
     private void disconnect(){
         try {
             connected = false;
