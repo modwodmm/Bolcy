@@ -1,7 +1,9 @@
 package com.modwodmm.bolcy;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -17,11 +19,13 @@ public class JsonHandler {
     }
 
     //Handles saving user data
-    public void save(User user){
+    public void save(User user) {
         try{
-            objectMapper.writeValue(path.toFile(), user);
+            List<User> users = load();
+            users.add(user);
+            objectMapper.writeValue(path.toFile(), users);
         }
-        catch(IOException e){
+        catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
@@ -29,6 +33,9 @@ public class JsonHandler {
     //Handles loading user data
     public List<User> load(){
         try{
+            if(Files.size(path) == 0){
+                return new ArrayList<>();
+            }
             return objectMapper.readValue(path.toFile(), new TypeReference<List<User>>() {});
         } catch (IOException e) {
             throw new RuntimeException(e);

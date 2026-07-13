@@ -69,6 +69,12 @@ public class ClientMenu {
             User user = new User(username, passwordHash);
             jsonHandler.save(user);
             System.out.println("Account created successfully!");
+            try{
+                connect();
+            }
+            catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         else{
             System.exit(0);

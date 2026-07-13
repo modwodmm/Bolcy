@@ -17,14 +17,16 @@ public class ClientHandler implements Runnable{
     private final AuthHandler authHandler;
     private final ServerSockets serverSockets;
     private final PrintWriter writer;
+    private final JsonHandler jsonHandler;
 
-    public ClientHandler(Socket client, ObjectMapper objectMapper, AuthHandler authHandler, ServerSockets serverSockets) throws IOException {
+    public ClientHandler(Socket client, ObjectMapper objectMapper, AuthHandler authHandler, ServerSockets serverSockets, JsonHandler jsonHandler) throws IOException {
         this.client = client;
         this.objectMapper = objectMapper;
         this.authHandler = authHandler;
         this.serverSockets = serverSockets;
         reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
-        writer = new PrintWriter(client.getOutputStream());
+        writer = new PrintWriter(client.getOutputStream(), true);
+        this.jsonHandler = jsonHandler;
     }
 
     @Override
@@ -33,11 +35,15 @@ public class ClientHandler implements Runnable{
             authenticateUser();
             String message;
             while((message = reader.readLine()) != null){
+                if(message.equals("/close")){
+                    serverSockets.serverBroadcast(user.getUsername() + " has left the chat");
+                    break;
+                }
                 serverSockets.broadcast(user.getUsername(), message);
             }
         }
         catch(IOException e){
-            throw new RuntimeException(e);
+            serverSockets.serverBroadcast(user.getUsername() + " disconnected!");
         }
         finally{
             disconnect();

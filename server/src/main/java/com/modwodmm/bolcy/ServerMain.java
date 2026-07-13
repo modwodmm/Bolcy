@@ -12,7 +12,7 @@ public class ServerMain {
         final JsonHandler jsonHandler = new JsonHandler(objectMapper);
         final AuthHandler authHandler = new AuthHandler(jsonHandler);
         final ConfigManager configManager = new ConfigManager();
-        final ServerSockets serverSockets = new ServerSockets(objectMapper, authHandler, configManager);
+        final ServerSockets serverSockets = new ServerSockets(objectMapper, authHandler, configManager,jsonHandler);
 
         //Starts the server-side
         try{

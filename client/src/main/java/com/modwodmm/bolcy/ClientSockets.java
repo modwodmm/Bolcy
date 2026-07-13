@@ -17,6 +17,7 @@ public class ClientSockets {
     private final ObjectMapper objectMapper;
     private PrintWriter writer;
     private boolean connected;
+    private boolean shutdown = false;
     private final Scanner scanner;
     private BufferedReader reader;
     private final ConfigManager configManager;
@@ -64,6 +65,8 @@ public class ClientSockets {
         while(connected){
             String message = scanner.nextLine();
             if(message.equals("/close")){
+                writer.println("/close");
+                shutdown = true;
                 disconnect();
                 System.exit(0);
             }
@@ -84,21 +87,19 @@ public class ClientSockets {
                 System.out.println(message);
             }
             catch(IOException e){
-                throw new RuntimeException(e);
+                if(!shutdown){
+                    System.out.println("Connection lost.");
+                }
+                disconnect();
+                System.exit(0);
             }
         }
     }
 
-    //Handles disconneting
+    //Handles disconnecting
     private void disconnect(){
         try {
             connected = false;
-            if(reader != null) {
-                reader.close();
-            }
-            if(writer != null) {
-                writer.close();
-            }
             if (socket != null) {
                 socket.close();
             }
