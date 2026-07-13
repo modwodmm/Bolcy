@@ -2,7 +2,7 @@
 
 <img width="256" height="256" alt="bolcy_" src="https://github.com/user-attachments/assets/d17a15d2-0bfb-4216-a87c-f29eaf76daa9" />
 
-Bolcy is an open source chatting platform written in java.
+Bolcy is an open-source chatting platform written in Java.
 A simple command-line (CLI) chat app made to strengthen my knowledge in java and to follow clean software engineering practices.
 
 ## Features:
@@ -18,16 +18,16 @@ A simple command-line (CLI) chat app made to strengthen my knowledge in java and
 ## How to run:
 
 ### Server:
-1. Install the 'Bolcy-Server.zip'.
-2. Extract the zip.
-3. Move the folder to server and run the exe file.
+1. Download 'Bolcy-Server.zip'.
+2. Extract the ZIP file.
+3. Move the folder to server and run the 'Bolcy-Server-{version}.exe'.
 4. A cmd panel should open and the server should start.
 
 ### Client:
-1. Install the 'Bolcy-Client.zip'.
-2. Extract the zip
-3. In the data folder, open the 'config.properties' and change it accordingly.
-4. Run the .exe and the client should start.
+1. Download 'Bolcy-Client.zip'.
+2. Extract the ZIP file.
+3. Open 'data/config.properties' and configure the host and port as needed.
+4. Run 'Bolcy-Client-{version}.exe'.
 
 ## Core Technologies:
 - JDK 25.0.2
